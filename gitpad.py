@@ -18,10 +18,17 @@ def criar_init(chave):
         f = open('init.txt','w')
         f.write(chave)
         f.close()
-        pass
     except Exception as e:
         print("erro: ",e)
-        pass
+def get_key():
+    try:
+        f = open('init.txt','r')
+        chave=f.read()
+        return(chave)
+        f.close()
+    except Exception as e:
+        print("erro: ",e)
+
 
 #inicializa o diretorio com uma chave de acesso para o dontpad
 def init(op):
@@ -36,11 +43,13 @@ def init(op):
             criar_init(sys.argv[2])
         except Exception as e:
             print("erro: ",e)
-def post(filename):
-    pass
+def pull(files):
+    chave=get_key()
+    req=requests.get(url="http://www.dontpad.com/"+chave)
+    print(req.text)
 
 def main():
-    init(sys.argv[1])
+    pull("")
 
 if (__name__=='__main__'):
     main()
