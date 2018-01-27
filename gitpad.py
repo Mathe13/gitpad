@@ -61,6 +61,13 @@ def pull(file):
         print("Sucesso")
     except Exception as e:
         print("erro",e)
+def push(file_name):
+    f=open(file=file_name,mode='r')
+    data=f.read()
+    f.close
+
+    data=data.replace('\\n','\n')
+    dontpad.post_data(page_name=file_name,content=data)
 
 def main():
     if(len(sys.argv))<3:
@@ -68,10 +75,11 @@ def main():
         return
     if(sys.argv[1]=="--init" or sys.argv=='--init-r'):
         init(sys.argv[1])
-    elif(sys.argv[1]=="pull"):
+    elif(sys.argv[1]=="--pull"):
         pull(sys.argv[2])
-    elif(sys.argv[1]=="push"):
-        print("não implementado")
+    elif(sys.argv[1]=="--push"):
+        push(sys.argv[2])
+
 
 
 if (__name__=='__main__'):

@@ -10,8 +10,8 @@ def get_data(page_name,key):
     #data=req.text[int(index[0]):]
     return(req.text[(int(index.span()[0])+8):-2])
 
-def post_data(page_name):
-    req=requests.post(url="http://dontpad.com/"+page_name,data="teste")
-    print (req)
+def post_data(page_name,content):
+    req=requests.post(url="http://dontpad.com/"+page_name,data={"text" : content})
+    pass
 if (__name__=='__main__'):
-    post_data("teste")
+    print("cod finalizado")
