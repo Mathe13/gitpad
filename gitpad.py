@@ -2,6 +2,7 @@ import sys
 import requests
 from random import choice
 from string import ascii_lowercase
+import dontpad
 #python dntpd.py --init/--init-r/--push/--pull
 
 def gera_chave(tamanho):
@@ -43,13 +44,35 @@ def init(op):
             criar_init(sys.argv[2])
         except Exception as e:
             print("erro: ",e)
-def pull(files):
+
+def escreve(dados,file_name):
+    f = open(file=file_name,mode='w')
+    dados=dados.replace('\\n','\n')
+    f.write(dados)
+    f.close
+def pull(file):
     chave=get_key()
-    req=requests.get(url="http://www.dontpad.com/"+chave)
-    print(req.text)
+    data="ERRO"
+    try:
+        data=dontpad.get_data(page_name=file,key=chave)
+        # print(data)
+        # return(data)
+        escreve(dados=data,file_name=file)
+        print("Sucesso")
+    except Exception as e:
+        print("erro",e)
 
 def main():
-    pull("")
+    if(len(sys.argv))<3:
+        print("use python gitpad.py --op name")
+        return
+    if(sys.argv[1]=="--init" or sys.argv=='--init-r'):
+        init(sys.argv[1])
+    elif(sys.argv[1]=="pull"):
+        pull(sys.argv[2])
+    elif(sys.argv[1]=="push"):
+        print("não implementado")
+
 
 if (__name__=='__main__'):
     main()
