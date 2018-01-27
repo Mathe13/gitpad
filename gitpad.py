@@ -79,7 +79,8 @@ def main():
         pull(sys.argv[2])
     elif(sys.argv[1]=="--push"):
         push(sys.argv[2])
-
+    else:
+        print("erro,opção invalida")
 
 
 if (__name__=='__main__'):
