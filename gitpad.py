@@ -67,13 +67,14 @@ def push(file_name):
     f.close
 
     data=data.replace('\\n','\n')
-    dontpad.post_data(page_name=file_name,content=data)
+    page_name=get_key()+"/"+file_name
+    dontpad.post_data(page_name=page_name,content=data)
 
 def main():
     if(len(sys.argv))<3:
         print("use python gitpad.py --op name")
         return
-    if(sys.argv[1]=="--init" or sys.argv=='--init-r'):
+    if(sys.argv[1]=="--init" or sys.argv[1]=='--init-r'):
         init(sys.argv[1])
     elif(sys.argv[1]=="--pull"):
         pull(sys.argv[2])
