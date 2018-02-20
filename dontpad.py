@@ -17,6 +17,6 @@ def get_data(page_name,key):
 
 def post_data(page_name,content):
     req=requests.post(url="http://dontpad.com/"+page_name,data={"text" : content})
-    pass
+    print(req.text())
 if (__name__=='__main__'):
     print("cod finalizado")
