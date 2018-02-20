@@ -3,49 +3,64 @@ import functions
 # from time import sleep
 
 
-class gitpad(functions):
+class gitpad():
+    # def __init__(**kwargs):
+    #     pass
+
     @staticmethod
-    def usage(self):
+    def usage():
         print("use python gitpad.py --op name")
 
     @staticmethod
-    def repo_init(self, comands):
+    def repo_init(comands):
         if(comands[1] == "-r" or comands[1] == "-R"):
             if comands[2].isdigit:
-                self.criar_init(functions.gera_chave(comands[2]))
+                functions.criar_init(functions.gera_chave(comands[2]))
             else:
                 print("voce deve especificar o tamanho da chave")
         else:
-            self.criar_init(sys.argv[2])
+            functions.criar_init(sys.argv[2])
+
+    @staticmethod
+    def repo_pull(comands):
+        if(comands[1] == "-kl"):
+            functions.pull(comands[2], "NONE")
+        else:
+            functions.pull(comands[1], functions.get_key())
+
+    @staticmethod
+    def repo_push(comands):
+        if(comands[1] == "-kl"):
+            functions.push(comands[2], "NONE")
+        else:
+            functions.push(comands[1], functions.get_key)
+
+    @staticmethod
+    def repo_syn_up(comands):
+        if len(comands) < 2:
+            while True:
+                print("synchronizing...")
+                functions.push(comands[1], comands[2])
+                print("done")
+        else:
+            while True:
+                print("synchronizing...")
+                functions.push(comands[1], "NONE")
+                print("done")
+
 
 def main():
+    comands = sys.argv[1:]
     if(len(sys.argv)) < 3:
         gitpad.usage()
-        return
     if(sys.argv[1] == "--init"):
-        gitpad.repo_init(sys.argv[2:])
+        gitpad.repo_init(comands=comands)
     elif(sys.argv[1] == "--pull"):
-        if(sys.argv[2] == "-kl"):
-            functions.pull(sys.argv[3], "NONE")
-        else:
-            functions.pull(sys.argv[2], functions.get_key())
+        gitpad.repo_pull(comands)
     elif(sys.argv[1] == "--push"):
-        if(sys.argv[2] == "-kl"):
-            functions.push(sys.argv[3], "NONE")
-        else:
-            functions.push(sys.argv[2], functions.get_key)
+        gitpad.repo_push(comands)
     elif(sys.argv[1] == "--sync_up"):
-        if len(sys.argv) < 3:
-            while True:
-                print("synchronizing...")
-                functions.push(sys.argv[2], sys.argv[3])
-                print("done")
-        else:
-            while True:
-                print("synchronizing...")
-                functions.push(sys.argv[2], "NONE")
-                print("done")
-
+        gitpad.repo_syn_up(comands)
     else:
         print("erro,opção invalida")
 
